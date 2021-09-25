@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash-
 TAG=''
 VERSION_TAG=
 
