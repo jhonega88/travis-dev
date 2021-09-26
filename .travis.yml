@@ -5,19 +5,20 @@ dist: xenial
 dotnet: 5.0.102
 branches:
   only:
-    - main
+    - master
 #    - develop
-#script:
-#  - dotnet build
-#  - dotnet test
-before_script:
-  - chmod -R a+x scripts
 script:
-  - ./scripts/build.sh
-  - ./scripts/test.sh
-after_success:
-  - ./scripts/dockerice.sh
-notifications:
-  email:
-    on_success: always
-    on_failure: always
+  - dotnet build
+  - dotnet test
+# [START travis_deploy]
+deploy:
+    provider: gae
+    # Skip cleanup so api_key.py and vendored dependencies are still there
+    skip_cleanup: true
+    keyfile: travis-net5-327200-f9b54408c86d.json
+    project: travis-net5-327200
+    version: service-jhon
+    default: true
+    on:
+        all_branches: true
+# [END travis_deploy]
